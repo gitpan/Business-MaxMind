@@ -10,12 +10,13 @@ use vars qw($VERSION $API_VERSION);
 use LWP::UserAgent;
 use URI::Escape;
 
-$VERSION = '1.48';
+$VERSION = '1.49';
 $API_VERSION = join('/','Perl',$VERSION);
 
-# we have two servers here in case one goes down
-# minfraud1 should be used by default, minfraud2 is the backup
-my @defaultservers = qw/minfraud1.maxmind.com minfraud2.maxmind.com/;
+# we have two servers main servers.
+# if possible use minfraud3 it is the fastest followed by minfraud1
+# minfraud2 should only used if you have a good reason
+my @defaultservers = qw/minfraud1.maxmind.com minfraud3.maxmind.com minfraud2.maxmind.com/;
 
 sub new {
   my $i = 0;
