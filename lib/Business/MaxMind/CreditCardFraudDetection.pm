@@ -9,17 +9,18 @@ use LWP::UserAgent;
 use base 'Business::MaxMind::HTTPBase';
 
 # input fields
-my @allowed_fields = qw/i domain city region postal country bin binName
-		binPhone custPhone license_key requested_type forwardedIP emailMD5
-		shipAddr shipCity shipRegion shipPostal shipCountry txnID sessionID
-		usernameMD5 passwordMD5 user_agent accept_language /;
+my @allowed_fields = qw/i city region postal country domain bin binName binPhone
+		 custPhone emailMD5 usernameMD5 passwordMD5 shipAddr shipCity
+		 shipRegion shipPostal shipCountry txnID sessionID user_agent
+		 accept_language order_amount order_currency shopID avs_result
+		 cvv_result txn_type license_key requested_type forwardedIP/;
 
-$VERSION = '1.51';
+$VERSION = '1.54';
 
 sub _init {
   my $self = shift;
   $self->{url} = 'app/ccv2r';
-  $self->{check_field} = 'score';
+  $self->{check_field} = 'countryMatch';
   $self->{timeout} ||= 10; # provide a default value of 10 seconds for timeout if not set by user
   %{$self->{allowed_fields}} = map {$_ => 1} @allowed_fields
 }

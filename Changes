@@ -1,4 +1,14 @@
 Revision history for Perl extension Business::Maxmind::CreditCardFraudDetection
+1.54 Jul 30th 2012
+	-  Added more input fields: avs_result, cvv_result,
+	   order_amount, order_currency, shopID, txn_type ( Gregory Oschwald )
+1.53 Apr 16th 2012
+	- update default servers ( Boris Zentner )
+	- Do not force hostname validation, otherwise cached SSL requests fail (
+	  Boris Zentner )
+1.52 Mar 13th 2012
+        - CreditCardFraudDetection check the countryMatch field instead of
+          score. Score is only avail in minfraud_version <= 1.2 ( Boris Zentner )
 1.51 Sep 3th 2009
         - Fix uri_encoding for wide characters ( Michael Schout )
         - Ignore, when create cache file fail ( Boris Zentner )
