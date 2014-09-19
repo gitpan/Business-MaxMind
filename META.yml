@@ -1,23 +1,35 @@
 ---
-abstract: 'Business::MaxMind - Access MaxMind minFraud, Telephone and Location verification services'
+abstract: 'Base class for accessing HTTP web services'
 author:
   - 'TJ Mather <tjmather@maxmind.com>'
+  - 'Frank Mather <frank@maxmind.com>'
 build_requires:
-  ExtUtils::MakeMaker: 0
+  Data::Dumper: '0'
+  Test: '0'
+  Test::More: '0'
+  utf8: '0'
 configure_requires:
-  ExtUtils::MakeMaker: 0
-dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.112150'
-license: unknown
+  ExtUtils::MakeMaker: '0'
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.141170'
+license: gpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Business-MaxMind
-no_index:
-  directory:
-    - t
-    - inc
 requires:
-  LWP::UserAgent: 0
-  URI: 1.36
-version: 1.54
+  Digest::MD5: '0'
+  LWP::UserAgent: '0'
+  URI::Escape: '0'
+  base: '0'
+  perl: '5.006'
+  strict: '0'
+resources:
+  bugtracker: https://github.com/maxmind/ccfd-api-perl/issues
+  repository: git://github.com/maxmind/ccfd-api-perl.git
+version: '1.55'
+x_authority: cpan:MAXMIND
+x_contributors:
+  - 'Boris Zentner <bzentner@maxmind.com>'
+  - 'Gregory Oschwald <goschwald@maxmind.com>'
+  - 'Olaf Alders <olaf@wundersolutions.com>'

@@ -2,71 +2,72 @@ package Business::MaxMind::CreditCardFraudDetection;
 
 use strict;
 
-use vars qw($VERSION);
-
 use Digest::MD5;
 use LWP::UserAgent;
 use base 'Business::MaxMind::HTTPBase';
 
-# input fields
-my @allowed_fields = qw/i city region postal country domain bin binName binPhone
-		 custPhone emailMD5 usernameMD5 passwordMD5 shipAddr shipCity
-		 shipRegion shipPostal shipCountry txnID sessionID user_agent
-		 accept_language order_amount order_currency shopID avs_result
-		 cvv_result txn_type license_key requested_type forwardedIP/;
+our $VERSION = '1.55';
 
-$VERSION = '1.54';
+# input fields
+my @allowed_fields
+    = qw/i city region postal country domain bin binName binPhone
+    custPhone emailMD5 usernameMD5 passwordMD5 shipAddr shipCity
+    shipRegion shipPostal shipCountry txnID sessionID user_agent
+    accept_language order_amount order_currency shopID avs_result
+    cvv_result txn_type license_key requested_type forwardedIP/;
 
 sub _init {
-  my $self = shift;
-  $self->{url} = 'app/ccv2r';
-  $self->{check_field} = 'countryMatch';
-  $self->{timeout} ||= 10; # provide a default value of 10 seconds for timeout if not set by user
-  %{$self->{allowed_fields}} = map {$_ => 1} @allowed_fields
+    my $self = shift;
+    $self->{url}         = 'app/ccv2r';
+    $self->{check_field} = 'countryMatch';
+    $self->{timeout} ||= 10
+        ; # provide a default value of 10 seconds for timeout if not set by user
+    %{ $self->{allowed_fields} } = map { $_ => 1 } @allowed_fields;
 }
 
 sub filter_field {
-  my ($self, $name, $value) = @_;
+    my ( $self, $name, $value ) = @_;
 
-  if ($name eq 'emailMD5') {
-    if ($value =~ m!\@!) {
-      return Digest::MD5::md5_hex(lc($value));
+    if ( $name eq 'emailMD5' ) {
+        if ( $value =~ m!\@! ) {
+            return Digest::MD5::md5_hex( lc($value) );
+        }
     }
-  }
 
-  if ($name =~ m!(username|password)MD5$!) {
-    if (length($value) != 32) {
-      return Digest::MD5::md5_hex(lc($value));
+    if ( $name =~ m!(username|password)MD5$! ) {
+        if ( length($value) != 32 ) {
+            return Digest::MD5::md5_hex( lc($value) );
+        }
     }
-  }
 
-  return $value;
+    return $value;
 }
 
 1;
-__END__
+
+=pod
+
+=encoding UTF-8
 
 =head1 NAME
 
 Business::MaxMind::CreditCardFraudDetection - Access MaxMind minFraud services
 
-=head1 ABSTRACT
+=head1 VERSION
 
-This module queries the MaxMind minFraud service and returns the results.  The service
-uses a free e-mail database, an IP address geography database, a bank identification number, and proxy checks
-to return a risk factor score representing the likelihood that the credit card transaction is fraudulent.
+version 1.55
 
 =head1 SYNOPSIS
 
-This example queries the minFraud service and displays the results:
+  use Business::MaxMind::CreditCardFraudDetection;
 
-  my $ccfs =
+  my $minfraud =
     Business::MaxMind::CreditCardFraudDetection->new(
                                                       isSecure => 1,
                                                       debug    => 0,
-                                                      timeout  => 10
-    );
-  $ccfs->input(
+                                                      timeout  => 10,
+  );
+  $minfraud->input(
          i               => '24.24.24.24',
          city            => 'New York',
          region          => 'NY',
@@ -81,9 +82,15 @@ This example queries the minFraud service and displays the results:
          accept_language => 'en',                   # optional
          license_key     => 'LICENSE_KEY_HERE'
   );
-  $ccfs->query;
+  $minfraud->query;
 
-  my $hash_ref = $ccfs->output;
+  my $hash_ref = $minfraud->output;
+
+=head1 DESCRIPTION
+
+This module queries the MaxMind minFraud service and returns the results.  The service
+uses a free e-mail database, an IP address geography database, a bank identification number, and proxy checks
+to return a risk factor score representing the likelihood that the credit card transaction is fraudulent.
 
 =head1 METHODS
 
@@ -99,9 +106,7 @@ to set timeout in seconds, if absent default value for timeout is 10 seconds.
 
 Sets input fields.  The input fields are
 
-=begin html
-
-<ul>
+=for html <ul>
   <li><b>i:</b> Client IP Address (IP address of customer placing order)
   <li><b>domain:</b> E-mail domain (e.g. hotmail.com, aol.com)
   <li><b>city, region, postal, country:</b> Billing City/State/ZipCode/Country
@@ -114,9 +119,7 @@ Sets input fields.  The input fields are
   <li><b>accept_language:</b> Accept-Language HTTP header, identifies the language settings of the browser the end-user is using. optional
 </ul>
 
-=end html
-
-See L<http://www.maxmind.com/app/ccv> for full list of input fields.
+See L<http://dev.maxmind.com/minfraud/> for full list of input fields.
 
 Returns 1 on success, 0 on failure.
 
@@ -133,17 +136,33 @@ Returns the output returned by the MaxMind server as a hash reference.
 
 =head1 SEE ALSO
 
-L<http://www.maxmind.com/app/ccv_overview>
+L<https://www.maxmind.com/en/minfraud-services>
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-TJ Mather, E<lt>tjmather@maxmind.comE<gt>
+=over 4
+
+=item *
+
+TJ Mather <tjmather@maxmind.com>
+
+=item *
+
+Frank Mather <frank@maxmind.com>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007 by MaxMind LLC
+This software is Copyright (c) 2014 by MaxMind, Inc..
 
-All rights reserved.  This package is free software and is licensed under
-the GPL.  For details, see the COPYING file.
+This is free software, licensed under:
+
+  The GNU General Public License, Version 2, June 1991
 
 =cut
+
+__END__
+
+# ABSTRACT: Access MaxMind minFraud services
+
