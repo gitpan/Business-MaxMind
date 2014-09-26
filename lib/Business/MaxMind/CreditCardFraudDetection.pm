@@ -6,7 +6,7 @@ use Digest::MD5;
 use LWP::UserAgent;
 use base 'Business::MaxMind::HTTPBase';
 
-our $VERSION = '1.55';
+our $VERSION = '1.56';
 
 # input fields
 my @allowed_fields
@@ -45,6 +45,10 @@ sub filter_field {
 
 1;
 
+# ABSTRACT: Access MaxMind minFraud services
+
+__END__
+
 =pod
 
 =encoding UTF-8
@@ -55,7 +59,7 @@ Business::MaxMind::CreditCardFraudDetection - Access MaxMind minFraud services
 
 =head1 VERSION
 
-version 1.55
+version 1.56
 
 =head1 SYNOPSIS
 
@@ -161,8 +165,3 @@ This is free software, licensed under:
   The GNU General Public License, Version 2, June 1991
 
 =cut
-
-__END__
-
-# ABSTRACT: Access MaxMind minFraud services
-

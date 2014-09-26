@@ -7,7 +7,7 @@ use strict;
 use LWP::UserAgent;
 use URI::Escape;
 
-our $VERSION = '1.55';
+our $VERSION = '1.56';
 
 my $API_VERSION = join( '/', 'Perl', $VERSION );
 
@@ -146,7 +146,7 @@ Business::MaxMind::HTTPBase - Base class for accessing HTTP web services
 
 =head1 VERSION
 
-version 1.55
+version 1.56
 
 =head1 DESCRIPTION
 

@@ -1,5 +1,5 @@
 ---
-abstract: 'Base class for accessing HTTP web services'
+abstract: 'API for MaxMind minFraud Services'
 author:
   - 'TJ Mather <tjmather@maxmind.com>'
   - 'Frank Mather <frank@maxmind.com>'
@@ -27,7 +27,7 @@ requires:
 resources:
   bugtracker: https://github.com/maxmind/ccfd-api-perl/issues
   repository: git://github.com/maxmind/ccfd-api-perl.git
-version: '1.55'
+version: '1.56'
 x_authority: cpan:MAXMIND
 x_contributors:
   - 'Boris Zentner <bzentner@maxmind.com>'

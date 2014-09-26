@@ -5,7 +5,7 @@ use strict;
 use LWP::UserAgent;
 use base 'Business::MaxMind::HTTPBase';
 
-our $VERSION = '1.55';
+our $VERSION = '1.56';
 
 my @allowed_fields = qw/l phone verify_code language/;
 
@@ -30,7 +30,7 @@ Business::MaxMind::TelephoneVerification - Access MaxMind's Telephone Verificati
 
 =head1 VERSION
 
-version 1.55
+version 1.56
 
 =head1 DESCRIPTION
 

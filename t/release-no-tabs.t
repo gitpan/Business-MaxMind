@@ -15,6 +15,7 @@ use Test::More 0.88;
 use Test::NoTabs;
 
 my @files = (
+    'lib/Business/MaxMind.pm',
     'lib/Business/MaxMind/CreditCardFraudDetection.pm',
     'lib/Business/MaxMind/HTTPBase.pm',
     'lib/Business/MaxMind/TelephoneVerification.pm'
